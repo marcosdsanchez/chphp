@@ -1,9 +1,8 @@
 require 'formula'
-
 class Chphp < Formula
   homepage 'https://github.com/marcosdsanchez/chphp#readme'
   url 'https://github.com/marcosdsanchez/chphp/archive/v0.0.1.tar.gz'
-  sha1 '237903096f874f40749520d267fe35e2e3222bb3'
+  sha1 '56c19d339cec860c8adc908e50c3e5da89143007'
 
   head 'https://github.com/marcosdsanchez/chphp.git'
 
