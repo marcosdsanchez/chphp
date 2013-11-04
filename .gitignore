@@ -1,0 +1,5 @@
+doc/
+pkg/*.tar.gz
+pkg/*.tar.bz2
+pkg/*.zip
+test/opt/php_versions/

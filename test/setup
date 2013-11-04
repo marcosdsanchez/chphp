@@ -1,0 +1,57 @@
+#!/bin/bash
+
+. ./test/helper.sh
+
+function log() {
+	if [[ -t 1 ]]; then
+		printf "%b>>>%b %b%s%b\n" "\x1b[1m\x1b[32m" "\x1b[0m" \
+		                          "\x1b[1m\x1b[37m" "$1" "\x1b[0m"
+	else
+		printf ">>> %s\n" "$1"
+	fi
+}
+
+function error() {
+	if [[ -t 1 ]]; then
+		printf "%b!!!%b %b%s%b\n" "\x1b[1m\x1b[31m" "\x1b[0m" \
+		                          "\x1b[1m\x1b[37m" "$1" "\x1b[0m" >&2
+	else
+		printf "!!! %s\n" "$1" >&2
+	fi
+}
+
+function fail() {
+	error "$1"
+	exit -1
+}
+
+function download() {
+	if command -v wget >/dev/null; then
+		wget -c -O "$2" "$1"
+	elif command -v curl >/dev/null; then
+		curl -L -C - -o "$2" "$1"
+	else
+		error "Could not find wget or curl"
+		return 1
+	fi
+}
+
+test_php_archive="$test_php_engine-$test_php_version.tar.bz2"
+test_php_url="http://us2.php.net/get/$test_php_archive/from/ar2.php.net/mirror"
+test_php_root="$test_php_engine-$test_php_version"
+
+mkdir -p "$PREFIX/opt/php_versions"
+cd "$PREFIX/opt/php_versions"
+
+log "Downloading $test_php_url ..."
+download "$test_php_url" "$test_php_archive" || fail "Download failed"
+
+log "Unpacking $test_php_archive ..."
+tar -xjf "$test_php_archive" || fail "Unpacking failed"
+
+log "Cleaning up ..."
+rm -f "$test_php_archive"
+
+cd $test_php_root
+./configure --prefix=$PREFIX/opt/php_versions/$test_php_root
+make install
