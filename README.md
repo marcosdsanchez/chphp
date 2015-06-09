@@ -40,7 +40,7 @@ via `sudo`:
 
 #### php-install
 
-You can also use [php-install] to install additional Rubies:
+You can also use [php-install] to install additional PHP versions:
 
 Installing to `/opt/php_versions` or `~/.php_versions`:
 
