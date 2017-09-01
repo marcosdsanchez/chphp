@@ -1,4 +1,4 @@
-# chphp
+# chphp - [unmaintained]
 
 [![Build Status](https://travis-ci.org/marcosdsanchez/chphp.png)](https://travis-ci.org/marcosdsanchez/chphp)
 
